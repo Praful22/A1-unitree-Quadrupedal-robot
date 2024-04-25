@@ -1,2 +1,2 @@
 # RobotControlMPC
-A repository consisting of Model Predictive Control Strategy applied to a 3D quadrupedal robot.
+A repository consisting of Trajectory Optimization and various controls strategies like QP, PD, PID, and Model Predictive Control applied to a 3D A1 unitree quadrupedal robot.
