@@ -1,5 +1,5 @@
-# RobotDynamicsAndControl
-A repository consisting of a 3D A1 unitree quadrupedal robot performing walking, trotting, running, jumping and a few other tasks using trajectory Optimization and various controls strategies like QP, PD, PID, and Model Predictive Control in Matlab, Simulink, and Simscape.
+# RobotDynamicsAndControl Team 3
+Scott Beck, Sungmo Park and Praful Sigdel
 
 # Introduction and Project Structure
 In this project, we are asked to design controllers for a number of tasks for the A1 quadruped robot in the MATLAB Simscape environment. To do so, we use a combined approach of Quasi-Linear MPC simulating Single Rigid Body Dynamics (SRBD) of the robot to determine the desired Ground Reaction Forces (GRFs) of the feet of the robot which are on the ground, combined with a swing controller which places the feet which are not on the ground in an opportune location to balance the robot during the next stance phase. The overall design of the controller block (for all tasks except for the obstacle course - which will be covered separately) is shown below.
@@ -8,6 +8,7 @@ In this project, we are asked to design controllers for a number of tasks for th
 
 Each of these components will be talked about in additional detail in their respective section below. The overall flow of the controller is that an initial state, a desired state trajectory for the robot center of mass, and a gait map are provided by the designer of the motion, depending on the task to be performed. These three values are used by the MPC controller to output ground reaction forces for the feet (set to be equal to zero for those feet not on the ground), and convert those forces into motor torques using the current joint state. The current state and the gait are simultaneously used to generate desired trajectories for the feet that are in the air, and these desired trajectories are subsequently compared to the current foot positions and used to implement a PD controller that tracks the feet along the designed trajectory. The commanded torques from the GRFs and the commanded torques from the swing controller are then summed, and the total torques are then passed through a saturation filter to ensure that no commanded torque exceeds the maximum allowed value of the robot motors.
 These torques are fed into a MATLAB Simulink simulation of the full non-linear dynamics of the robot, and the simulation is used to generate new values for the current robot state. These new values then form the basis for the next calculated GRFs and swing controller torques, and the process is repeated until the task is completed.
+
 
 # Simulink Simulation and State Sensing
 The non-linear dynamics simulation is performed in the Simscape environment, derived from the URDF file for the A1 quadruped robot, which includes proper joint angle and motor torque limits for each joint. The torques were provided to each leg block using a 3x1 vector of torques representing the hip yaw, hip pitch, and knee torques, respectively.
@@ -39,6 +40,22 @@ Foot Placement Design: Depending on the targeted task the foot placement is gene
 ## Walking and Running: 
 For the walking and running tasks, each foot placement was determined following the linear inverted pendulum model(LIPM) . LIPM determines the foot placement based on the position of hip placement, feed forward and backward term. Feed forward term(Tstance/2*Vcom) is the half of the COM’s travel distance while the foot is in the air. By determining the foot placement to be placed half the travel distance further from its hip position, the feed forward term pace the foot position along with the Vcom. On the other hand, the feedback term(Kstep*(Vcom-Vd)) brings the foot backward when the Vcom exceeds Vd. In the case of running, an additional constant alpha was because at high velocity, the foot placement could not keep pace with the Vcom.
 
+<img width="461" alt="Screenshot 2024-05-09 at 11 18 54 PM" src="https://github.com/Praful22/A1-unitree-Quadrupedal-robot/assets/65821250/6590db26-5dbd-4c76-aed6-115c44bdaf53">
+
+Rotation: In case of the rotation, Vcom is zero canceling out both feed forward and backward term resulting in Eqn 3.
+
+<img width="425" alt="Screenshot 2024-05-09 at 11 19 39 PM" src="https://github.com/Praful22/A1-unitree-Quadrupedal-robot/assets/65821250/908c4960-c1d1-4c5c-9b1c-98de185e571c">
+
+In both of the above cases, after 𝑃𝑓𝑜𝑜𝑡 is determined using Eqns 1, 2, or 3, the z location of the foot is projected down to 0, in order to ensure that the foot will be placed on solid ground and be
+able to start the next stance phase.
+
+## Stair Climbing: 
+In stair climbing, the prediction of the next desired foot position functions in exactly the same manner as described above, using Equation 1 for foot position, but differs from the walking and running motions in that rather than projecting the z location of the foot down to 0, instead the predicted X and Y locations are compared to the “known” locations of the steps of the stairs, and the corresponding z value of the stair (if any) that exists at that location is set as the z value of the foot. This approach relies on pre-knowledge of the stairs, which in a real robot would have to be either hard-coded into its memory, or else generated in situ using computer vision of some variety. Alternatively, a contact detection algorithm could be used to estimate when the foot is in contact with the ground and update the contact map accordingly. However, this method was beyond the scope of what we were able to achieve in this project.
+
+Additionally, in the stair climbing task, a “deadband” was implemented in proximity to the edge of the stair. If the above equations resulted in a desired foot position that was “too close” to the edge of the stair (and would likely either result either in tripping - if too close to the bottom of the stair, or in sliding off the stair - if too close to the top of the stair) then the foot desired foot position was modified to a predetermined distance from the bottom or top of the stair, depending on the commanded x value of the desired location.
+
+## Foot Trajectory Generation: 
+For walking and running, the foot trajectory design aims to smoothly transition between ground contact and swing phases. The ‘footTrajectory’ function generates trajectories for each foot based on initial, final positions, and number of interpolation points between them. By utilizing De Castlejau’s algorithm to evaluate a polynomial in Bezier curve, the trajectory ensures natural motion patterns.
 
 # Links to Videos for Walking (Forward, Backward, Sideways), Trotting, Tunning, Jumping and completing an Obstacle Course.
 
