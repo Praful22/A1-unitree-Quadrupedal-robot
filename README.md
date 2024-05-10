@@ -55,7 +55,19 @@ In stair climbing, the prediction of the next desired foot position functions in
 Additionally, in the stair climbing task, a “deadband” was implemented in proximity to the edge of the stair. If the above equations resulted in a desired foot position that was “too close” to the edge of the stair (and would likely either result either in tripping - if too close to the bottom of the stair, or in sliding off the stair - if too close to the top of the stair) then the foot desired foot position was modified to a predetermined distance from the bottom or top of the stair, depending on the commanded x value of the desired location.
 
 ## Foot Trajectory Generation: 
-For walking and running, the foot trajectory design aims to smoothly transition between ground contact and swing phases. The ‘footTrajectory’ function generates trajectories for each foot based on initial, final positions, and number of interpolation points between them. By utilizing De Castlejau’s algorithm to evaluate a polynomial in Bezier curve, the trajectory ensures natural motion patterns.
+For walking and running, the foot trajectory design aims to smoothly transition between ground contact and swing phases. The ‘footTrajectory’ function generates trajectories for each foot based on initial, final positions, and number of interpolation points between them. By utilizing De Castlejau’s algorithm to evaluate a polynomial in Bezier curve, the trajectory ensures natural motion patterns. When traversing stairs, in addition to the trajectory generation for walking, the foot trajectory adapts to varying step heights. By analyzing the difference in elevation between consecutive steps and adjusting the height of the control points accordingly, the function dynamically adjusts the trajectory's peak height to ensure the foot can reach over the upcoming step. This ensures smooth transitions between steps whether staying on the same step or moving up one step, minimizing the risk of tripping or loss of balance. In addition to generating the position trajectory, the velocity trajectory was derived by taking numerical differentiation to the position trajectory.
+
+## Controller Design
+Our approach to control for these tasks falls into two categories: For tasks 1 through 3, the same controller controls the robot throughout the whole motion - this is a “walking” controller that commands a constant desired velocity in a given direction to the MPC controller (with a ramp-up and slow-down period at the beginning and end of the motion to prevent slipping when commanding higher speeds), and converts the resultant GRFs to joint torques. There are slight differences when applying this controller to stair climbing, which will be discussed, but broadly the same control approach applies. This is in contrast to the obstacle course in task 4, which changes between this walking controller and a “jumping” controller, which itself employs switching between MPC control for the jumping motion and a pure PD joint controller for pre-flight and pre-landing posing. This jumping controller will be discussed in a separate section.
+Walking Controller Design
+
+## MPC Controller Design: 
+The MPC controller takes in the desired state trajectory over the time horizon of the MPC controller (𝑑𝑡𝑀𝑃𝐶 = 0. 03 𝑠, 𝑁𝑀𝑃𝐶 = 10, for all MPC in this project), the MPC
+weighting matrices Q and R (tuned by trial and error for each task), the robot mass and moment of inertia, 𝑚 and 𝐼𝑏, and the aforementioned state and foot location information output from the
+Simulink simulation. These inputs are used to formulate the controller in the form of a QP controller that can be solved using MATLAB’s quadprog function. The flowchart in Fig. 3 depicts how these inputs map to each of the arguments of the quadprog function.
+
+<img width="595" alt="Screenshot 2024-05-09 at 11 22 54 PM" src="https://github.com/Praful22/A1-unitree-Quadrupedal-robot/assets/65821250/ffb74b71-9fe5-40f3-8913-23de53b58fe6">
+
 
 # Links to Videos for Walking (Forward, Backward, Sideways), Trotting, Tunning, Jumping and completing an Obstacle Course.
 
