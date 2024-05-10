@@ -13,7 +13,7 @@ Walking Sideways: https://youtu.be/MezQx2boX4I?si=FHt29BcuHELJAGPA
 
 Spinning in Place: https://youtu.be/dvJnvrmFhn8?si=YSv_Gh6Unfd6vPHH
 
-Running Quadrupedal: https://youtu.be/I3LpZ6ute5A?si=TCX5iCS1oMwCcByA
+Running Quadrupedal: https://youtu.be/MSF3aIHd8XI?si=5etHWX9mfzWmShqL
 
 Climbing Stairs: https://youtu.be/I3LpZ6ute5A?si=jfkSTEVhXDAUC27q
 
