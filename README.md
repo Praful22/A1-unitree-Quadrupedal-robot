@@ -1,5 +1,5 @@
 # RobotDynamicsAndControl Team 3
-Scott Beck, Sungmo Park and Praful Sigdel
+Authors: Scott Beck, Sungmo Park and Praful Sigdel
 
 # Introduction and Project Structure
 In this project, we are asked to design controllers for a number of tasks for the A1 quadruped robot in the MATLAB Simscape environment. To do so, we use a combined approach of Quasi-Linear MPC simulating Single Rigid Body Dynamics (SRBD) of the robot to determine the desired Ground Reaction Forces (GRFs) of the feet of the robot which are on the ground, combined with a swing controller which places the feet which are not on the ground in an opportune location to balance the robot during the next stance phase. The overall design of the controller block (for all tasks except for the obstacle course - which will be covered separately) is shown below.
