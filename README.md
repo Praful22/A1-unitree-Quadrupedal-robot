@@ -1,3 +1,6 @@
+# Credits and References:
+[Dr. Quan Nguyen(With highest respect to his teaching strategies, guidance and understanding!](https://viterbi.usc.edu/directory/faculty/Nguyen/Quan)
+
 # RobotDynamicsAndControl Team 3
 Authors: Scott Beck, Sungmo Park and Praful Sigdel
 
