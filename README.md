@@ -107,7 +107,7 @@ After the impact phase ends, the PD control adjusts the configuration of the rob
 
 ## Task Results and Corresponding Score Breakdown:
 #### Task 1
-- Walking: All requirements for Task 1 were successfully completed, with each specified motion being performed at ≥ 0.5 m/s or ≥ 0.5 rad/s, as specified. Plots of the relevant velocity (linear or angular) vs. time are shown in Figures 5 through 8 for each task. Video of each motion is available in the linked folder.
+- Walking: All requirements for Task 1 were successfully completed, with each specified motion being performed at ≥ 0.5 m/s or ≥ 0.5 rad/s, as specified. Plots of the relevant velocity (linear or angular) vs. time are shown in Figures 5 through 8 for each task. 
 Score: All requirements achieved - yielding 35 points.
 
 <img width="1238" alt="Screenshot 2024-05-09 at 11 28 34 PM" src="https://github.com/Praful22/A1-unitree-Quadrupedal-robot/assets/65821250/b3d4244f-9f5e-46a8-a8ef-1a66acea6c74">
@@ -121,7 +121,7 @@ Walking Sideways: https://youtu.be/MezQx2boX4I?si=FHt29BcuHELJAGPA
 Spinning in Place: https://youtu.be/dvJnvrmFhn8?si=YSv_Gh6Unfd6vPHH
 
 #### Task 2 
-- Running: The 10 m goal was reached in a time of 4.75s, as shown in Fig. 9, with an average velocity of 2.5, after ramp-up. This was achieved with a trotting gait with a short flight phase. A video of the motion, as well as a close-up slowed-down video showing the flight phase is included in the linked folder.
+- Running: The 10 m goal was reached in a time of 4.75s, as shown in Fig. 9, with an average velocity of 2.5, after ramp-up. This was achieved with a trotting gait with a short flight phase. 
 Score: Per rubric - 200 / travel time(s) = 200 / 4.75 (s) = 42.1 points
 <img width="1390" alt="Screenshot 2024-05-09 at 11 29 16 PM" src="https://github.com/Praful22/A1-unitree-Quadrupedal-robot/assets/65821250/c3c55b65-e748-4210-9bb3-e1a88c258dd6">
 
@@ -129,14 +129,14 @@ Running Quadrupedal: https://youtu.be/MSF3aIHd8XI?si=5etHWX9mfzWmShqL
 
 
 #### Task 3 
-- Stair Climbing: The stair climbing goal was accomplished in 4.61 s, as measured as the time at which the last rear leg touched the ground on the top stair (measured from video). A video of the motion is included in the linked folder.
+- Stair Climbing: The stair climbing goal was accomplished in 4.61 s, as measured as the time at which the last rear leg touched the ground on the top stair (measured from video).
 Score: Per rubric - 20/travel time(s) = 200 / 4.61 (s) = 4.3 points
 <img width="1141" alt="Screenshot 2024-05-09 at 11 30 18 PM" src="https://github.com/Praful22/A1-unitree-Quadrupedal-robot/assets/65821250/b5eb9a0d-11d2-45c8-a10b-5fa845557a28">
 
 Climbing Stairs: https://youtu.be/I3LpZ6ute5A?si=jfkSTEVhXDAUC27q
 
 #### Task 4
-- Obstacle Course: The obstacle course was completed in a time of 16.34s, as measured as the time at which the trunk COM passed 8.0 m. The final obstacle overcome was set at 0.5 m tall. A video of the motion is included in the linked folder.
+- Obstacle Course: The obstacle course was completed in a time of 16.34s, as measured as the time at which the trunk COM passed 8.0 m. The final obstacle overcome was set at 0.5 m tall.
 Score: Per rubric - 100/ travel time(s) + 100 x (h_obs - 0.2)
 = 100/ 16.34 (s) + 100 x (0.5 - 0.2) = 36.1 points\
 
